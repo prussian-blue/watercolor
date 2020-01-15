@@ -34,6 +34,8 @@ const globalCompositeOperationModes = {
   "luminosity": "luminosity"
 };
 
+const randomInt = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
+
 // eslint-disable-next-line func-names
 CanvasRenderingContext2D.prototype.rotateImageFromCenter = function(
   imageCanvas,
@@ -155,7 +157,23 @@ canvasDOMEl.setAttribute("width", window.innerWidth);
 ctx.save();
 
 const img = new Image();
-img.src = "img/f3.jpg";
+
+const design = randomInt(1,3)
+img.src = `img/f${design}.jpg`;
+
+if (design === 1) {
+  canvasDOMEl.style.background = `linear-gradient(#820031, #fe0032)`
+  
+}
+if (design === 2) {
+  canvasDOMEl.style.background = `linear-gradient(#8cd4d2, #82b9cd)`
+}
+
+if (design === 3) {
+  canvasDOMEl.style.background = `linear-gradient(#ffa5fc, #ca3ec5)`
+}
+
+
 img.onload = draw;
 
 function draw() {
@@ -171,7 +189,7 @@ function draw() {
     };
   });
 
-  var simulation = d3
+  d3
     .forceSimulation(nodes)
     .velocityDecay(0.98)
     .force("x", d3.forceX().strength(0.002))
